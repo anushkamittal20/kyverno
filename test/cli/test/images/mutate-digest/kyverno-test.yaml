@@ -1,0 +1,16 @@
+name: test-mutate-for-image-digest
+policies:
+  - policies.yaml
+resources:
+  - resources.yaml
+results:
+  - policy: mutate-image-digest
+    rule: mutate-digest
+    resource: changefordigest
+    kind: Pod
+    status: pass
+  - policy: mutate-image-digest
+    rule: mutate-digest
+    resource: nochangefordigest
+    kind: Pod
+    status: pass

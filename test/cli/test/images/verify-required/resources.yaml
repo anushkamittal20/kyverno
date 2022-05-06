@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: withdigest
+  name: verified
 spec:
   containers:
     - name: signed
@@ -12,7 +12,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: withoutdigest
+  name: notverified
 spec:
   containers:
     - name: signed

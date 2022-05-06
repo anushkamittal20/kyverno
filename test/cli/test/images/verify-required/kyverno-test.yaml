@@ -4,13 +4,13 @@ policies:
 resources:
   - resources.yaml
 results:
-  - policy: check-image
+  - policy: require-image-ver
     rule: verify-signature
-    resource: withdigest
+    resource: verified
     kind: Pod
     status: pass
-  - policy:  check-image
+  - policy:  require-image-ver
     rule: verify-signature
-    resource: withoutdigest
+    resource: notverified
     kind: Pod
     status: fail
