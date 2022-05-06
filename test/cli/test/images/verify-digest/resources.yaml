@@ -1,0 +1,19 @@
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: withdigest
+spec:
+  containers:
+    - name: signed
+      image: ghcr.io/kyverno/test-verify-image:signed
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: withoutdigest
+spec:
+  containers:
+    - name: signed
+      image: ghcr.io/kyverno/test-verify-image:unsigned
