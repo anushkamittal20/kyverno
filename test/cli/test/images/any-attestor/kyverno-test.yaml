@@ -1,0 +1,16 @@
+name: test-image-any-attestor
+policies:
+  - policies.yaml
+resources:
+  - resources.yaml
+results:
+  - policy: check-image-with-any
+    rule: verify-any
+    resource: signed
+    kind: Pod
+    status: pass
+  - policy: check-image-with-any
+    rule: verify-any
+    resource: unsigned
+    kind: Pod
+    status: fail
