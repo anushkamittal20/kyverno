@@ -1,27 +1,34 @@
+---
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: check-image-with-any
+  name: multiple-key-any
   annotations:
     pod-policies.kyverno.io/autogen-controllers: none
 spec:
   validationFailureAction: enforce
   background: false
+  webhookTimeoutSeconds: 30
+  failurePolicy: Fail
   rules:
-    - name: verify-any
-      match:
-        resources:
-          kinds:
-            - Pod
-      verifyImages:
-      - imageReferences:
-        - "*"
-        attestors:
-        - count: 1
-          entries:
-          - keys:
-              publicKeys: |-
-                -----BEGIN PUBLIC KEY-----
-                MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE8nXRh950IZbRj8Ra/N9sbqOPZrfM
-                5/KAQN0/KjHcorm/J5yctVd7iEcnessRQjU917hmKO6JWVGHpDguIyakZA==
-                -----END PUBLIC KEY-----    
+  - name: verify-any
+    match:
+      resources:
+        kinds:
+        - Pod
+    verifyImages:
+    - imageReferences:
+      - ghcr.io/kyverno/test-verify-image:*
+      attestors:
+      - count: 1
+        entries:
+        - keys:
+            publicKeys: |-
+              -----BEGIN PUBLIC KEY-----
+              MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE8nXRh950IZbRj8Ra/N9sbqOPZrfM5/KAQN0/KjHcorm/J5yctVd7iEcnessRQjU917hmKO6JWVGHpDguIyakZA==
+              -----END PUBLIC KEY-----
+        - keys:
+            publicKeys: |-
+              -----BEGIN PUBLIC KEY-----
+              MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEyBg8yod24/wIcc5QqlVLtCfL+6Te+nwdPdTvMb1AiZn24zBToHJVZvQdYLgRWAbh0Jd+6JhEwsDmnXRrlV7rfw==
+              -----END PUBLIC KEY-----

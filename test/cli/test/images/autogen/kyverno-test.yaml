@@ -1,0 +1,12 @@
+name: test-autogen-keuless
+policies:
+  - policies.yaml
+resources:
+  - resources.yaml
+results:
+  - policy: tasks-keyless
+    rule: verify-images
+    resource: example-task-verified
+    kind: tekton.dev/v1beta1/Task
+    status: pass
+

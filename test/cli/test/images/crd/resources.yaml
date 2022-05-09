@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: example-task-name-unverified
+spec:
+  steps:
+    - name: ubuntu-example-unverified
+      image: ubuntu:bionic
+
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: example-task-name-verified
+spec:
+  steps:
+    - name: kyverno-test-verified
+      image: ghcr.io/kyverno/test-verify-image:signed
