@@ -1,0 +1,16 @@
+name: test-image-crd
+policies:
+  - policies.yaml
+resources:
+  - resources.yaml
+results:
+  - policy: tasks-simple-crd
+    rule: verify-images
+    resource: example-task-name-unverified
+    kind: tekton.dev/v1beta1/Task
+    status: fail
+  - policy: tasks-simple-crd
+    rule: verify-images
+    resource: example-task-name-verified
+    kind: tekton.dev/v1beta1/Task
+    status: pass

@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: tasks-simple
+  annotations:
+    kyverno.io/verify-images: none
+spec:
+  validationFailureAction: enforce
+  rules:
+  - name: verify-images
+    match:
+      resources:
+        kinds:
+        - tekton.dev/v1beta1/Task
+    imageExtractors:
+      Task:
+        - path: /spec/steps/*/image
+    verifyImages:
+      - imageReferences:
+        - "*"
+        attestors:
+        - count: 1
+          entries:
+          - keys:
+              publicKeys: |-
+                -----BEGIN PUBLIC KEY-----
+                MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE8nXRh950IZbRj8Ra/N9sbqOPZrfM
+                5/KAQN0/KjHcorm/J5yctVd7iEcnessRQjU917hmKO6JWVGHpDguIyakZA==
+                -----END PUBLIC KEY-----
